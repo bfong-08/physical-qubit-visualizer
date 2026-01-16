@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-gabarito: var(--font-gabarito);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer components {
+  .button {
+    @apply flex items-center justify-center h-24 w-24 border rounded-xl text-4xl;
+  }
+
+  .black {
+    @apply border-stone-700 bg-linear-150 from-stone-800 to-stone-950 hover:from-stone-700 hover:to-stone-900 active:from-stone-800 active:to-stone-900;
+  }
+
+  .indigo {
+    @apply border-indigo-700/50 bg-linear-150 from-indigo-800/50 to-indigo-950/50 hover:from-indigo-700/75 hover:to-indigo-900/50 active:from-indigo-800/50 active:to-indigo-900/50;
+  }
+
+  .sky {
+    @apply border-sky-700/50 bg-linear-150 from-sky-800/50 to-sky-950/50 hover:from-sky-700/75 hover:to-sky-900/50 active:from-sky-800/50 active:to-sky-900/50;
+  }
+
+  .emerald {
+    @apply border-emerald-700/50 bg-linear-150 from-emerald-800/50 to-emerald-950/50 hover:from-emerald-700/75 hover:to-emerald-900/50 active:from-emerald-800/50 active:to-emerald-900/50;
+  }
+}
