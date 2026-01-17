@@ -31,7 +31,7 @@ export default function Home() {
   useEffect(() => {
     async function fetchAmps() {
       try {
-        const res = await fetch("http://localhost:8000/api/data");
+        const res = await fetch("http://localhost:8000/api/amps");
         if (!res.ok) throw new Error("Network response was not ok");
         const result = await res.json();
         setAmps(result);
@@ -44,9 +44,36 @@ export default function Home() {
     fetchAmps();
   }, []);
 
-  const formatNumber = (amps: amps) => {
-    return "";
+  const isZero = (amp: number) => {
+    return Math.abs(amp) < 1e-5;
   };
+
+  const isNeg = (amp: number) => {
+    return amp < 0;
+  };
+
+  async function onGate(gate: string) {
+    try {
+      const res = await fetch("http://localhost:8000/api/gate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ gate_name: gate }),
+      });
+      if (!res.ok) {
+        const errorData = await res.json();
+        console.error("API Error Detals:", errorData);
+        throw new Error("Network response was not ok");
+      }
+      const result = await res.json();
+      setAmps(result);
+    } catch (err: any) {
+      setError(err.message);
+    }
+  }
+
+  const formattedState = `${amps && `(${amps.alpha_real.toFixed(2)}+${amps.alpha_imag.toFixed(2)}i)\\ket{0}+(${amps.beta_real.toFixed(2)}+${amps.beta_imag.toFixed(2)}i)\\ket{1}`}`;
 
   return (
     <div className="flex flex-col font-gabarito text-stone-2s00">
@@ -59,26 +86,20 @@ export default function Home() {
         <div className="flex justify-center items-center text-2xl my-2">
           {loading && <span>Loading...</span>}
           {error && <span>Error: {error}</span>}
-          {amps && (
-            <MathJax>
-              {`$$\\ket{\\psi}=
-              (${amps.alpha_real.toFixed(2)}+${amps.alpha_imag.toFixed(2)}i)\\ket{0}+
-              (${amps.beta_real.toFixed(2)}+${amps.beta_imag.toFixed(2)}i)\\ket{1}$$`}
-            </MathJax>
-          )}
+          {amps && <MathJax>{`$$\\ket{\\psi}=${formattedState}$$`}</MathJax>}
         </div>
         <div className="flex items-center justify-center gap-4">
-          <button className="button black">
-            <MathJax>{`$$H$$`}</MathJax>
+          <button className="button black" onClick={() => onGate("h")}>
+            <MathJax className="pointer-events-none">{`$$H$$`}</MathJax>
           </button>
-          <button className="button indigo">
-            <MathJax>{`$$X$$`}</MathJax>
+          <button className="button indigo" onClick={() => onGate("x")}>
+            <MathJax className="pointer-events-none">{`$$X$$`}</MathJax>
           </button>
-          <button className="button sky">
-            <MathJax>{`$$Z$$`}</MathJax>
+          <button className="button sky" onClick={() => onGate("z")}>
+            <MathJax className="pointer-events-none">{`$$Z$$`}</MathJax>
           </button>
           <button className="button emerald">
-            <MathJax>{`$$S$$`}</MathJax>
+            <MathJax className="pointer-events-none">{`$$S$$`}</MathJax>
           </button>
         </div>
       </MathJaxContext>

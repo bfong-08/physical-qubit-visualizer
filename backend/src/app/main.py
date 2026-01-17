@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from qubit import Qubit
-import numpy as np
+from pydantic import BaseModel
 
 app = FastAPI()
 
@@ -16,13 +16,28 @@ app.add_middleware(
 )
 
 q = Qubit(1+0j, 0+0j)
-q = Qubit(0.6, 0.8)
-q = Qubit(np.sqrt(1/2), np.sqrt(1/2) * 1j)
 
-alpha, beta = q.get_state()
+@app.get("/api/amps")
+async def get_state():
+    alpha, beta = q.get_state()
+    return {"alpha_real": alpha.real,
+            "alpha_imag": alpha.imag,
+            "beta_real": beta.real,
+            "beta_imag": beta.imag}
 
-@app.get("/api/data")
-async def root():
+class Item(BaseModel):
+    gate_name: str
+
+@app.post("/api/gate")
+async def update_state(data: Item):
+    match (data.gate_name):
+        case "h":
+            q.h()
+        case "x":
+            q.x()
+        case "z":
+            q.z()
+    alpha, beta = q.get_state()
     return {"alpha_real": alpha.real,
             "alpha_imag": alpha.imag,
             "beta_real": beta.real,
