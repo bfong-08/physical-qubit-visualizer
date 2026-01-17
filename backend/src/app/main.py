@@ -31,12 +31,20 @@ class Item(BaseModel):
 @app.post("/api/gate")
 async def update_state(data: Item):
     match (data.gate_name):
+        case "reset":
+            q.reset_state()
         case "h":
             q.h()
         case "x":
             q.x()
+        case "y":
+            q.y()
         case "z":
             q.z()
+        case "s":
+            q.s()
+        case "t":
+            q.t()
     alpha, beta = q.get_state()
     return {"alpha_real": alpha.real,
             "alpha_imag": alpha.imag,

@@ -17,14 +17,30 @@ class Qubit:
     def set_state(self, alpha:complex, beta:complex) -> None:
         self.state = np.array([alpha, beta])
 
+    def reset_state(self) -> None:
+        self.state = np.array([1+0j, 0+0j])
+
     def x(self) -> None:
         x = np.array([[0, 1], [1, 0]])
-        self.state = self.state @ x
+        self.state @= x
+
+    def y(self) -> None:
+        y = np.array([[0, -1j], [1j, 0]])
+        self.state @= y
+    
 
     def z(self) -> None:
         z = np.array([[1, 0], [0, -1]])
-        self.state = self.state @ z
+        self.state @= z
 
     def h(self) -> None:
         h = 1/np.sqrt(2) * np.array([[1, 1], [1, -1]])
-        self.state = self.state @ h
+        self.state @= h
+    
+    def s(self) -> None:
+        s = np.array([[1, 0], [0, 1j]])
+        self.state @= s
+
+    def t(self) -> None:
+        t = np.array([[1, 0], [0, np.exp(1j * np.pi/4)]])
+        self.state @= t
