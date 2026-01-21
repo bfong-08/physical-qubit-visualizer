@@ -27,7 +27,7 @@ async def get_state():
 
 class Item(BaseModel):
     gate_name: str
-    phase: int | float
+    theta: int | float
 
 @app.post("/api/gate")
 async def update_state(data: Item):
@@ -46,6 +46,12 @@ async def update_state(data: Item):
             q.s()
         case "t":
             q.t()
+        case "p":
+            q.p(data.theta)
+        case "r_x":
+            q.r_x(data.theta)
+        case "r_y":
+            q.r_y(data.theta)
     alpha, beta = q.get_state()
     return {"alpha_real": alpha.real,
             "alpha_imag": alpha.imag,

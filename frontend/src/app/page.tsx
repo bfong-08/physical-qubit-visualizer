@@ -29,8 +29,6 @@ export default function Home() {
   const [amps, setAmps]: any = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [phase, setPhase] = useState("");
-  const [phaseDropdownOpen, setPhaseDropdownOpen] = useState(false);
 
   useEffect(() => {
     async function fetchAmps() {
@@ -49,10 +47,10 @@ export default function Home() {
   }, []);
 
   async function onGate(gate: string, theta?: number) {
-    const phase = theta ? theta : 0;
+    const t = theta ? theta : 0;
     const body = {
       gate_name: gate,
-      phase: phase,
+      theta: t,
     };
     try {
       const res = await fetch("http://localhost:8000/api/gate", {
@@ -163,7 +161,7 @@ const RotationGateButton = ({
   };
 
   return (
-    <div className="relative flex w-54">
+    <div className="relative flex w-54" ref={ref}>
       <button
         className={`button w-4/5 ${color ? color : "black"} rounded-r-none!`}
         onClick={() => onGate(name, theta)}
@@ -178,7 +176,6 @@ const RotationGateButton = ({
       </button>
       <div
         className={`absolute pt-3 w-full top-full left-0 ${dropdownOpen ? "flex" : "hidden"} flex-col z-10`}
-        ref={ref}
       >
         <div
           className={`border-t border-l caret-${color} absolute rotate-45 w-2 h-2 top-2 right-[9%]`}
@@ -192,7 +189,7 @@ const RotationGateButton = ({
             className={`w-2/5 mx-2 text-${color} px-2 text-xl font-latex`}
             onChange={handleThetaChange}
             value={theta}
-            maxLength={4}
+            maxLength={5}
           />
           <MathJax inline>{"$rad$"}</MathJax>
         </div>

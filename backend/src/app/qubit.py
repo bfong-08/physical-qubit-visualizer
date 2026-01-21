@@ -28,7 +28,6 @@ class Qubit:
         y = np.array([[0, -1j], [1j, 0]])
         self.state @= y
     
-
     def z(self) -> None:
         z = np.array([[1, 0], [0, -1]])
         self.state @= z
@@ -44,3 +43,17 @@ class Qubit:
     def t(self) -> None:
         t = np.array([[1, 0], [0, np.exp(1j * np.pi/4)]])
         self.state @= t
+
+    def p(self, theta) -> None:
+        p = np.array([[1, 0], [0, np.exp(1j * theta)]])
+        self.state @= p
+    
+    def r_x(self, theta) -> None:
+        r_x = np.array([[np.cos(theta/2), -1j * np.sin(theta/2)],
+                        [-1j * np.sin(theta/2), np.cos(theta/2)]])
+        self.state @= r_x
+
+    def r_y(self, theta) -> None:
+        r_y = np.array([[np.cos(theta/2), -np.sin(theta/2)],
+                        [np.sin(theta/2), np.cos(theta/2)]])
+        self.state @= r_y
