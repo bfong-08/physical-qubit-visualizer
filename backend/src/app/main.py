@@ -27,6 +27,7 @@ async def get_state():
 
 class Item(BaseModel):
     gate_name: str
+    phase: int | float
 
 @app.post("/api/gate")
 async def update_state(data: Item):

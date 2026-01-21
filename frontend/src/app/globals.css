@@ -5,10 +5,16 @@
   --foreground: #171717;
 }
 
+@font-face {
+  font-family: "Computer Modern";
+  src: url("/public/fonts/cmunrm.ttf") format("ttf");
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-gabarito: var(--font-gabarito);
+  --font-latex: "Computer Modern";
 }
 
 @media (prefers-color-scheme: dark) {
@@ -26,7 +32,7 @@ body {
 
 @layer components {
   .button {
-    @apply flex items-center justify-center h-24 w-24 border rounded-xl text-4xl;
+    @apply flex items-center outline-none justify-center h-24 w-24 border rounded-xl text-4xl;
   }
 
   .black {
@@ -43,5 +49,29 @@ body {
 
   .emerald {
     @apply border-emerald-700/50 bg-linear-150 from-emerald-800/50 to-emerald-950/50 hover:from-emerald-700/75 hover:to-emerald-900/50 active:from-emerald-800/50 active:to-emerald-900/50;
+  }
+
+  .bg-emerald {
+    @apply from-emerald-800/50 to-emerald-950/50 border border-emerald-700/50;
+  }
+
+  .bg-indigo {
+    @apply from-indigo-800/50 to-indigo-950/50 border border-indigo-700/50;
+  }
+
+  .text-emerald {
+    @apply rounded-sm border border-emerald-700/50 bg-linear-330 from-emerald-800/50 to-emerald-950/50 focus:from-emerald-500/50 focus:to-emerald-800/50 hover:from-emerald-500/50 hover:to-emerald-800/50 outline-none py-1;
+  }
+
+  .text-indigo {
+    @apply rounded-sm border border-indigo-700/50 bg-linear-330 from-indigo-800/50 to-indigo-950/50 focus:from-indigo-500/50 focus:to-indigo-800/50 hover:from-indigo-500/50 hover:to-indigo-800/50 outline-none py-1;
+  }
+
+  .caret-emerald {
+    @apply border-emerald-700/50 bg-emerald-950;
+  }
+
+  .caret-indigo {
+    @apply border-indigo-700/50 bg-indigo-950;
   }
 }
