@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Header, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
-from qubit import Qubit
+from backend.src.qubit import Qubit
 from pydantic import BaseModel
 
 app = FastAPI()
