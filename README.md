@@ -1,4 +1,4 @@
-# Physics Qubit State Visualizer (NumPy)
+# Physical Qubit State Visualizer (NumPy)
 
 ## Table of Contents
 
@@ -12,7 +12,7 @@
 
 ## Overview
 
-Pure single-qubit states are often visualized through the Bloch sphere, a unit sphere with poles corresponding to the states $\ket{0}$ and $\ket{1}$, $\ket{+}$ and $\ket{-}$, and $\ket{i}$ and $\ket{-i}$. This projects provides a user-friendly interface to update a qubit's state while reflecting that state on a motorized, Arduino-powered bloch sphere model.
+Pure single-qubit states are often visualized through the Bloch sphere, a unit sphere with poles corresponding to the states $\ket{0}$ and $\ket{1}$, $\ket{+}$ and $\ket{-}$, and $\ket{i}$ and $\ket{-i}$. This projects provides a user-friendly interface to update a qubit's state while reflecting that state on a motorized, Arduino-powered bloch sphere model. The underlying qubit state simulator was built from scratch using NumPy.
 
 ## Features
 
