@@ -28,22 +28,24 @@ Pure single-qubit states are often visualized through the Bloch sphere, a unit s
 
 ## Project Structure
 
-├──[backend/](.\backend)  
-│  ├──[src/](.\backend\src)  
-│  │  └──[app/](.\backend\src\app)  
-│  │     ├──[main.py](.\backend\src\app\main.py)  
-│  │     └──[qubit.py](.\backend\src\app\qubit.py)  
-│  └──[requirements.txt](.\requirements.txt)  
-├──[frontend/](.\frontend)  
-│  └──[src/](.\frontend\src)  
-│     ├──[app/](.\frontend\src\app)  
-│     │  ├──[globals.css](.\frontend\src\app\globals.css)  
-│     │  ├──[layout.tsx](.\frontend\src\app\layout.tsx)  
-│     │  └──[page.tsx](.\frontend\src\app\page.tsx)  
-│     └──[hooks/](.\frontend\src\hooks)  
-│        └──[useClickOutside.tsx](.\frontend\src\hooks\useClickOutside.tsx)  
-├──[LICENSE](.\LICENSE)  
-└──[README.md](.\README.md)  
+```
+├──backend
+│  ├──src
+│  │  └──app
+│  │     ├──main.py
+│  │     └──qubit.py
+│  └──requirements.txt
+├──frontend
+│  └──src
+│     ├──app
+│     │  ├──globals.css
+│     │  ├──layout.tsx
+│     │  └──page.tsx
+│     └──hooks
+│        └──useClickOutside.tsx
+├──LICENSE 
+└──README.md
+```
 
 ## Key Concepts
 
