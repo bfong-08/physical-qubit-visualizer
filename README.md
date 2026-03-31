@@ -29,6 +29,7 @@ Pure single-qubit states are often visualized through the Bloch sphere, a unit s
 ## Project Structure
 
 ```
+.
 ├──backend
 │  ├──src
 │  │  └──app
