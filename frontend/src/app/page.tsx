@@ -30,10 +30,23 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const getSessionId = () => {
+    let sessionId = sessionStorage.getItem('ephemeral_session_id');
+    if(!sessionId) {
+      sessionId = crypto.randomUUID();
+      sessionStorage.setItem('ephemeral_session_id', sessionId);
+    }
+    return sessionId;
+  }
+
   useEffect(() => {
     async function fetchAmps() {
       try {
-        const res = await fetch("http://localhost:8000/api/amps");
+        const res = await fetch("http://localhost:8000/api/amps",
+          {
+            headers: {'X-Session-ID': getSessionId()}
+          }
+        );
         if (!res.ok) throw new Error("Network response was not ok");
         const result = await res.json();
         setAmps(result);
@@ -57,6 +70,7 @@ export default function Home() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "X-Session-ID": getSessionId()
         },
         body: JSON.stringify(body),
       });

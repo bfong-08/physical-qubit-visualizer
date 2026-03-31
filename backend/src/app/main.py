@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Header, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from qubit import Qubit
 from pydantic import BaseModel
@@ -15,11 +15,18 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-q = Qubit(1+0j, 0+0j)
+user_dict: dict[str, Qubit] = {}
+
+async def get_anonymous_user(x_session_id: str = Header(None)):
+    if not x_session_id:
+        raise HTTPException(status_code=400, detail="Session ID missing")
+    return x_session_id
 
 @app.get("/api/amps")
-async def get_state():
-    alpha, beta = q.get_state()
+async def get_state(session_id: str = Depends(get_anonymous_user)):
+    if session_id not in user_dict.keys():
+        user_dict[session_id] = Qubit(1+0j, 0+0j)
+    alpha, beta = user_dict[session_id].get_state()
     return {"alpha_real": alpha.real,
             "alpha_imag": alpha.imag,
             "beta_real": beta.real,
@@ -30,7 +37,8 @@ class Item(BaseModel):
     theta: int | float
 
 @app.post("/api/gate")
-async def update_state(data: Item):
+async def update_state(data: Item, session_id: str = Depends(get_anonymous_user)):
+    q = user_dict[session_id]
     match (data.gate_name):
         case "reset":
             q.reset_state()
