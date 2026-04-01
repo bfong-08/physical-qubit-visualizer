@@ -42,7 +42,7 @@ export default function Home() {
   useEffect(() => {
     async function fetchAmps() {
       try {
-        const res = await fetch("http://localhost:8000/api/amps",
+        const res = await fetch("https://physical-qubit-visualizer-backend.vercel.app/api/amps",
           {
             headers: {'X-Session-ID': getSessionId()}
           }
@@ -66,7 +66,7 @@ export default function Home() {
       theta: t,
     };
     try {
-      const res = await fetch("http://localhost:8000/api/gate", {
+      const res = await fetch("https://physical-qubit-visualizer-backend.vercel.app/api/gate", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
