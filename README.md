@@ -12,12 +12,12 @@
 
 ## Overview
 
-Pure single-qubit states are often visualized through the Bloch sphere, a unit sphere with poles corresponding to the states $\ket{0}$ and $\ket{1}$, $\ket{+}$ and $\ket{-}$, and $\ket{i}$ and $\ket{-i}$. This projects provides a user-friendly interface to update a qubit's state while reflecting that state on a motorized, Arduino-powered bloch sphere model. The underlying qubit state simulator was built from scratch using NumPy.
+Pure single-qubit states are often visualized through the Bloch sphere, a unit sphere with poles corresponding to the states $\ket{0}$ and $\ket{1}$, $\ket{+}$ and $\ket{-}$, and $\ket{i}$ and $\ket{-i}$. This projects provides a user-friendly interface to update a qubit's state while reflecting that state on a motorized, Arduino-powered bloch sphere model. The underlying qubit state simulator was built from scratch using NumPy (an even lighter-weight version of the simulator built [here](https://github.com/bfong-08/quantum-simulator)).
 
 ## Features
 
-- **Statevector-based simulation** of arbitrary quantum states
-- **Gate operations:** Supports standard gates including X, H, Z, and rotation gates
+- **Statevector-based simulation** of arbitrary quantum states.
+- **Gate operations:** Supports standard gates including X, H, Z, and rotation gates.
 
 ## Goals
 
@@ -42,6 +42,10 @@ Pure single-qubit states are often visualized through the Bloch sphere, a unit s
 │     │  ├──globals.css
 │     │  ├──layout.tsx
 │     │  └──page.tsx
+│     ├──components
+│     │  ├──Buttons.tsx
+│     │  ├──DynamicMath.tsx
+│     │  └──Profile.tsx
 │     └──hooks
 │        └──useClickOutside.tsx
 ├──LICENSE 
