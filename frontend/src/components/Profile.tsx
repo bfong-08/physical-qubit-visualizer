@@ -19,6 +19,7 @@ export default function Profile() {
         <a
           href={"https://github.com/bfong-08/physical-qubit-visualizer"}
           className="h-6 flex items-center gap-2"
+          target="_blank"
         >
           <FaGithub className="w-full h-full" /> GitHub
         </a>
