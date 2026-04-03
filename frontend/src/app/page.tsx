@@ -11,25 +11,27 @@ export default function Home() {
   const [error, setError] = useState(null);
 
   const getSessionId = () => {
-    let sessionId = sessionStorage.getItem('ephemeral_session_id');
-    if(!sessionId) {
+    let sessionId = sessionStorage.getItem("ephemeral_session_id");
+    if (!sessionId) {
       sessionId = crypto.randomUUID();
-      sessionStorage.setItem('ephemeral_session_id', sessionId);
+      sessionStorage.setItem("ephemeral_session_id", sessionId);
     }
     return sessionId;
-  }
+  };
 
   useEffect(() => {
     async function fetchAmps() {
       try {
-        const res = await fetch("https://bfong-qubit-visualizer-api.vercel.app/api/amps",
+        const res = await fetch(
+          "https://bfong-qubit-visualizer-api.vercel.app/api/amps",
           {
-            headers: {'X-Session-ID': getSessionId()}
-          }
+            headers: { "X-Session-ID": getSessionId() },
+          },
         );
         if (!res.ok) throw new Error("Network response was not ok");
         const result = await res.json();
         setAmps(result);
+        setError(null);
       } catch (err: any) {
         setError(err.message);
       } finally {
@@ -46,14 +48,17 @@ export default function Home() {
       theta: t,
     };
     try {
-      const res = await fetch("https://bfong-qubit-visualizer-api.vercel.app/api/gate", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-Session-ID": getSessionId()
+      const res = await fetch(
+        "https://bfong-qubit-visualizer-api.vercel.app/api/gate",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Session-ID": getSessionId(),
+          },
+          body: JSON.stringify(body),
         },
-        body: JSON.stringify(body),
-      });
+      );
       if (!res.ok) {
         const errorData = await res.json();
         console.error("API Error Detals:", errorData);
@@ -70,16 +75,16 @@ export default function Home() {
 
   return (
     <div className="flex flex-col font-gabarito text-stone-200">
-      <Profile/>
+      <Profile />
       <div className="flex justify-center items-center h-16 border-b border-stone-800 bg-linear-[170deg] from-stone-900 to-stone-950">
         <h1 className="text-3xl font-medium">Qubit State Visualizer</h1>
       </div>
-        <div className="flex justify-center items-center text-2xl my-2">
-          {loading && <span>Loading...</span>}
-          {error && <span>Error: {error}</span>}
-          {amps && <DynamicMath expression={`\\ket{\\psi}=${formattedState}`}/>}
-        </div>
-        <div className="flex items-center justify-center gap-2 flex-col">
+      <div className="flex justify-center items-center text-2xl my-2">
+        {loading && <span>Loading...</span>}
+        {error && <span>Error: {error}</span>}
+        {amps && <DynamicMath expression={`\\ket{\\psi}=${formattedState}`} />}
+      </div>
+      <div className="flex items-center justify-center gap-2 flex-col">
         <button
           className="border border-stone-700 px-4 py-2 rounded-lg text-stone-400 hover:bg-stone-900 hover:text-stone-200 active:bg-stone-950 active:text-stone-300 my-2"
           onClick={() => onGate("reset")}
@@ -110,4 +115,3 @@ export default function Home() {
     </div>
   );
 }
-
