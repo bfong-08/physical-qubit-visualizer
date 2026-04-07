@@ -72,9 +72,12 @@ export default function Home() {
     }
   }
 
-  const alpha_imag = `${amps && amps.alpha_imag < 0 ? `-${Math.abs(amps.alpha_imag.toFixed(2))}i` : `+${amps.alpha_imag.toFixed(2)}i`}`;
-  const beta_imag = `${amps && amps.beta_imag < 0 ? `-${Math.abs(amps.beta_imag.toFixed(2))}i` : `+${amps.beta_imag.toFixed(2)}i`}`;
-  const formattedState = `${amps && `(${amps.alpha_real.toFixed(2)}${alpha_imag})\\ket{0}+(${amps.beta_real.toFixed(2)}+${beta_imag})\\ket{1}`}`;
+  const formattedState = `${
+    amps &&
+    `(${amps.alpha_real.toFixed(2)}
+  ${amps.alpha_imag < 0 ? `-${Math.abs(amps.alpha_imag).toFixed(2)}i` : `+${amps.alpha_imag.toFixed(2)}i`})\\ket{0}+(${amps.beta_real.toFixed(2)}
+  ${amps.beta_imag < 0 ? `-${Math.abs(amps.beta_imag).toFixed(2)}i` : `+${amps.beta_imag.toFixed(2)}i`})\\ket{1}`
+  }`;
 
   return (
     <div className="flex flex-col font-gabarito text-stone-200">
