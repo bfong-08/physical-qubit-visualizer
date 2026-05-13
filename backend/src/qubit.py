@@ -28,8 +28,8 @@ class Qubit:
         rand = random()
         result = 0
         if (rand > p_0):
-            result = 1
             self.state = np.array([0+0j,1+0j])
+            result = 1
         else: 
             self.state = np.array([1+0j,0+0j])
         return result

@@ -64,14 +64,14 @@ export default function Home() {
         console.error("API Error Detals:", errorData);
         throw new Error("Network response was not ok");
       }
+      const result = await res.json();
+      setAmps(result);
+      setError(null);
       if (gate == "measure") {
         setMeasurement(amps.measurement);
       } else {
         setMeasurement("N/A");
       }
-      const result = await res.json();
-      setAmps(result);
-      setError(null);
     } catch (err: any) {
       setError(err.message);
     }
