@@ -28,10 +28,13 @@ async def get_state(session_id: str = Depends(get_anonymous_user)):
     if session_id not in user_dict.keys():
         user_dict[session_id] = Qubit(1+0j, 0+0j)
     alpha, beta = user_dict[session_id].get_state()
+    theta, phi = user_dict[session_id].get_angles()
     return {"alpha_real": alpha.real,
             "alpha_imag": alpha.imag,
             "beta_real": beta.real,
-            "beta_imag": beta.imag}
+            "beta_imag": beta.imag,
+            "theta": theta,
+            "phi": phi}
 
 class Item(BaseModel):
     gate_name: str
@@ -62,7 +65,10 @@ async def update_state(data: Item, session_id: str = Depends(get_anonymous_user)
         case "r_y":
             q.r_y(data.theta)
     alpha, beta = q.get_state()
+    theta, phi = q.get_angles()
     return {"alpha_real": alpha.real,
             "alpha_imag": alpha.imag,
             "beta_real": beta.real,
-            "beta_imag": beta.imag}
+            "beta_imag": beta.imag,
+            "theta": theta,
+            "phi": phi}

@@ -22,7 +22,7 @@ export default function Home() {
     async function fetchAmps() {
       try {
         const res = await fetch(
-          "https://bfong-qubit-visualizer-api.vercel.app/api/amps",
+          " //https://bfong-qubit-visualizer-api.vercel.app/api/amps",
           {
             headers: { "X-Session-ID": getSessionId() },
           },
@@ -48,7 +48,7 @@ export default function Home() {
     };
     try {
       const res = await fetch(
-        "https://bfong-qubit-visualizer-api.vercel.app/api/gate",
+        "//https://bfong-qubit-visualizer-api.vercel.app/api/gate",
         {
           method: "POST",
           headers: {
@@ -110,6 +110,25 @@ export default function Home() {
         <div className="flex border border-stone-700 rounded-[20px] p-2 gap-4">
           <RotationGateButton name="r_x" onGate={onGate} color="indigo" />
           <RotationGateButton name="r_y" onGate={onGate} color="indigo" />
+        </div>
+      </div>
+      <div className="fixed top-48 left-32 flex flex-col gap-4">
+        <div className="border border-stone-700 black pointer-events-none rounded-xl p-4 pb-2 flex flex-col items-center">
+          <h1 className="font-bold text-xl">Bloch Sphere Angles</h1>
+          {amps && (
+            <DynamicMath
+              expression={`\\theta=${amps.theta.toFixed(4)} \\\\[1ex] \\phi=${amps.phi.toFixed(4)}`}
+            />
+          )}
+        </div>
+
+        <div className="border black pointer-events-none border-stone-700 rounded-xl p-4 pb-2 flex flex-col items-center">
+          <h1 className="font-bold text-xl">Probabilities</h1>
+          {amps && (
+            <DynamicMath
+              expression={`P(0)=${Math.abs(Math.pow(amps.alpha_real, 2) + Math.pow(amps.alpha_imag, 2)).toFixed(4)}\\\\[1ex]P(1)=${Math.abs(Math.pow(amps.beta_real, 2) + Math.pow(amps.beta_imag, 2)).toFixed(4)}`}
+            />
+          )}
         </div>
       </div>
     </div>

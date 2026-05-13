@@ -1,5 +1,7 @@
 import numpy as np
 import numpy.typing as npt
+from src.utils import get_angles
+from random import random
 
 class Qubit:
     def __init__(self, alpha:complex=1+0j, beta:complex=0+0j) -> None:
@@ -13,6 +15,24 @@ class Qubit:
     
     def get_state(self):
         return self.state
+    
+    def get_angles(self):
+        alpha, beta = self.state
+        
+        return get_angles(alpha, beta)
+    
+    def measure(self):
+        alpha, _ = self.state
+        a, b = alpha.real, alpha.imag
+        p_0 = np.pow(a, 2)+np.pow(b, 2)
+        rand = random()
+        result = 0
+        if (rand > p_0):
+            result = 1
+            self.state = np.array([0+0j,1+0j])
+        else: 
+            self.state = np.array([1+0j,0+0j])
+        return result
 
     def set_state(self, alpha:complex, beta:complex) -> None:
         self.state = np.array([alpha, beta])
