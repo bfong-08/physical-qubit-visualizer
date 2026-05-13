@@ -68,7 +68,7 @@ export default function Home() {
       setAmps(result);
       setError(null);
       if (gate == "measure") {
-        setMeasurement(amps.measurement);
+        setMeasurement(result.measurement);
       } else {
         setMeasurement("N/A");
       }
