@@ -22,7 +22,7 @@ export default function Home() {
     async function fetchAmps() {
       try {
         const res = await fetch(
-          " //https://bfong-qubit-visualizer-api.vercel.app/api/amps",
+          "https://bfong-qubit-visualizer-api.vercel.app/api/amps",
           {
             headers: { "X-Session-ID": getSessionId() },
           },
@@ -48,7 +48,7 @@ export default function Home() {
     };
     try {
       const res = await fetch(
-        "//https://bfong-qubit-visualizer-api.vercel.app/api/gate",
+        "https://bfong-qubit-visualizer-api.vercel.app/api/gate",
         {
           method: "POST",
           headers: {
