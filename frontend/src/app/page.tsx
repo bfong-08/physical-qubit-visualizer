@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { GateButton, RotationGateButton } from "@/components/Buttons";
 import DynamicMath from "@/components/DynamicMath";
-import Profile from "@/components/Profile";
 
 export default function Home() {
   const [amps, setAmps]: any = useState(null);
@@ -80,11 +79,7 @@ export default function Home() {
   }`;
 
   return (
-    <div className="flex flex-col font-gabarito text-stone-200">
-      <Profile />
-      <div className="flex justify-center items-center h-16 border-b border-stone-800 bg-linear-[170deg] from-stone-900 to-stone-950">
-        <h1 className="text-3xl font-medium">Qubit State Visualizer</h1>
-      </div>
+    <div className="flex flex-col font-gabarito text-stone-200 h-screen pt-16">
       <div className="flex justify-center items-center text-2xl my-2">
         {loading && <span>Loading...</span>}
         {error && <span>Error: {error}</span>}
@@ -117,7 +112,6 @@ export default function Home() {
           <RotationGateButton name="r_y" onGate={onGate} color="indigo" />
         </div>
       </div>
-      <footer className="h-24"></footer>
     </div>
   );
 }

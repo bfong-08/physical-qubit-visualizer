@@ -1,14 +1,13 @@
 import Link from "next/link";
-import { FaGithub } from "react-icons/fa";
+import { FaRegUserCircle } from "react-icons/fa";
 import { IoMailOutline, IoCaretDown } from "react-icons/io5";
 
 export default function Profile() {
   return (
     <div
       className="fixed top-2 left-2 h-12 border rounded-md 
-        flex items-center pl-4 pr-3 bg-linear-[170deg] hover:h-22
-        from-cyan-300/50 to-cyan-500/50  border-cyan-200
-        transition-all duration-200 overflow-hidden flex-col
+        flex items-center pl-4 pr-3 hover:h-22
+        gray transition-all duration-200 overflow-hidden flex-col
         group"
     >
       <div className="flex items-center gap-2 h-12 flex-none ">
@@ -17,11 +16,11 @@ export default function Profile() {
       </div>
       <div className="flex gap-4 pb-2 pr-2">
         <a
-          href={"https://github.com/bfong-08/physical-qubit-visualizer"}
+          href={"https://bfong-portfolio.vercel.app/"}
           className="h-6 flex items-center gap-2"
           target="_blank"
         >
-          <FaGithub className="w-full h-full" /> GitHub
+          <FaRegUserCircle className="w-full h-full" /> Portfolio
         </a>
         <a
           href={"mailto:branfong21@gmail.com"}

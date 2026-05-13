@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
-import { Gabarito } from "next/font/google";
+import { Hanken_Grotesk } from "next/font/google";
 import "./globals.css";
+import "katex/dist/katex.min.css";
+import Navbar from "@/components/Navbar";
 
-const gabarito = Gabarito({
+const gabarito = Hanken_Grotesk({
   variable: "--font-gabarito",
   subsets: ["latin"],
 });
@@ -23,6 +25,7 @@ export default function RootLayout({
         className={`${gabarito.variable} antialiased`}
         suppressHydrationWarning
       >
+        <Navbar />
         {children}
       </body>
     </html>

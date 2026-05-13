@@ -1,26 +1,29 @@
 @import "tailwindcss";
 
-:root {
-  --background: #0a0a0a;
-  --foreground: #ffffff;
-}
-
 @font-face {
   font-family: "Computer Modern";
   src: url("/public/fonts/cmunrm.ttf") format("ttf");
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
   --font-gabarito: var(--font-gabarito);
   --font-latex: "Computer Modern";
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-stone-950);
+  color: white;
+  font-family: var(--font-gabarito);
+}
+
+@layer base {
+  h2 {
+    @apply font-bold text-2xl;
+  }
+
+  h3 {
+    @apply font-semibold text-xl mt-4;
+  }
 }
 
 @layer components {
@@ -30,6 +33,10 @@ body {
 
   .black {
     @apply border-stone-700 bg-linear-150 from-stone-800 to-stone-950 hover:from-stone-700 hover:to-stone-900 active:from-stone-800 active:to-stone-900;
+  }
+
+  .gray {
+    @apply border-stone-600 bg-linear-150 from-stone-700 to-stone-900;
   }
 
   .indigo {
