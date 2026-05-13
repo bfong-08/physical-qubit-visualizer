@@ -34,7 +34,8 @@ async def get_state(session_id: str = Depends(get_anonymous_user)):
             "beta_real": beta.real,
             "beta_imag": beta.imag,
             "theta": theta,
-            "phi": phi}
+            "phi": phi,
+            "measurement": 0}
 
 class Item(BaseModel):
     gate_name: str
@@ -43,6 +44,7 @@ class Item(BaseModel):
 @app.post("/api/gate")
 async def update_state(data: Item, session_id: str = Depends(get_anonymous_user)):
     q = user_dict[session_id]
+    measurement = 0
     match (data.gate_name):
         case "reset":
             q.reset_state()
@@ -64,6 +66,8 @@ async def update_state(data: Item, session_id: str = Depends(get_anonymous_user)
             q.r_x(data.theta)
         case "r_y":
             q.r_y(data.theta)
+        case "measure":
+            measurement = q.measure()
     alpha, beta = q.get_state()
     theta, phi = q.get_angles()
     return {"alpha_real": alpha.real,
@@ -71,4 +75,5 @@ async def update_state(data: Item, session_id: str = Depends(get_anonymous_user)
             "beta_real": beta.real,
             "beta_imag": beta.imag,
             "theta": theta,
-            "phi": phi}
+            "phi": phi,
+            "measurement": measurement}

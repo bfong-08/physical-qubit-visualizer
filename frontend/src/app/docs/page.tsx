@@ -26,8 +26,8 @@ export default function Docs() {
           represented by the angled brackets{" "}
           <InlineMath math="\ket{\hspace{2pt}}" />, denotes a 2-by-1 column
           vector, where the first entry corresponds to the amplitude of the{" "}
-          <Zero />
-          state and the second entry corresponds to the amplitude of the <One />
+          <Zero /> state and the second entry corresponds to the amplitude of
+          the <One />
           state. The following qubit states are equivalent to the classical
           binary states:
         </p>

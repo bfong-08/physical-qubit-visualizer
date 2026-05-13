@@ -8,6 +8,7 @@ export default function Home() {
   const [amps, setAmps]: any = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [measurement, setMeasurement] = useState("\\text{N/A}");
 
   const getSessionId = () => {
     let sessionId = sessionStorage.getItem("ephemeral_session_id");
@@ -63,6 +64,11 @@ export default function Home() {
         console.error("API Error Detals:", errorData);
         throw new Error("Network response was not ok");
       }
+      if (gate == "measure") {
+        setMeasurement(amps.measurement);
+      } else {
+        setMeasurement("N/A");
+      }
       const result = await res.json();
       setAmps(result);
       setError(null);
@@ -85,50 +91,66 @@ export default function Home() {
         {error && <span>Error: {error}</span>}
         {amps && <DynamicMath expression={`\\ket{\\psi}=${formattedState}`} />}
       </div>
-      <div className="flex items-center justify-center gap-2 flex-col">
-        <button
-          className="border border-stone-700 px-4 py-2 rounded-lg text-stone-400 hover:bg-stone-900 hover:text-stone-200 active:bg-stone-950 active:text-stone-300 my-2"
-          onClick={() => onGate("reset")}
-        >
-          Reset State
-        </button>
-        <div className="flex gap-2">
-          <div className="p-2 border border-stone-700 rounded-[20px]">
-            <GateButton name="h" onGate={onGate} />
+      <div className="flex items-start justify-center gap-16 ">
+        <div className="flex flex-col gap-4">
+          <div className="border border-stone-700 black pointer-events-none rounded-xl p-4 pb-2 flex flex-col items-center">
+            <h1 className="font-bold text-xl">Bloch Sphere Angles</h1>
+            {amps && (
+              <DynamicMath
+                expression={`\\theta=${amps.theta.toFixed(4)} \\\\[1ex] \\phi=${amps.phi.toFixed(4)}`}
+              />
+            )}
           </div>
-          <div className="flex gap-4 border border-stone-700 rounded-[20px] p-2">
-            <GateButton name="x" onGate={onGate} color="sky" />
-            <GateButton name="y" onGate={onGate} color="sky" />
-            <GateButton name="z" onGate={onGate} color="sky" />
-          </div>
-        </div>
-        <div className="flex gap-4 border border-stone-700 p-2 rounded-[20px]">
-          <GateButton name="s" onGate={onGate} color="emerald" />
-          <GateButton name="t" onGate={onGate} color="emerald" />
-          <RotationGateButton name="p" onGate={onGate} color="emerald" />
-        </div>
-        <div className="flex border border-stone-700 rounded-[20px] p-2 gap-4">
-          <RotationGateButton name="r_x" onGate={onGate} color="indigo" />
-          <RotationGateButton name="r_y" onGate={onGate} color="indigo" />
-        </div>
-      </div>
-      <div className="fixed top-48 left-32 flex flex-col gap-4">
-        <div className="border border-stone-700 black pointer-events-none rounded-xl p-4 pb-2 flex flex-col items-center">
-          <h1 className="font-bold text-xl">Bloch Sphere Angles</h1>
-          {amps && (
-            <DynamicMath
-              expression={`\\theta=${amps.theta.toFixed(4)} \\\\[1ex] \\phi=${amps.phi.toFixed(4)}`}
-            />
-          )}
-        </div>
 
-        <div className="border black pointer-events-none border-stone-700 rounded-xl p-4 pb-2 flex flex-col items-center">
-          <h1 className="font-bold text-xl">Probabilities</h1>
-          {amps && (
-            <DynamicMath
-              expression={`P(0)=${Math.abs(Math.pow(amps.alpha_real, 2) + Math.pow(amps.alpha_imag, 2)).toFixed(4)}\\\\[1ex]P(1)=${Math.abs(Math.pow(amps.beta_real, 2) + Math.pow(amps.beta_imag, 2)).toFixed(4)}`}
-            />
-          )}
+          <div className="border black pointer-events-none border-stone-700 rounded-xl p-4 pb-2 flex flex-col items-center">
+            <h1 className="font-bold text-xl">Probabilities</h1>
+            {amps && (
+              <DynamicMath
+                expression={`P(0)=${Math.abs(Math.pow(amps.alpha_real, 2) + Math.pow(amps.alpha_imag, 2)).toFixed(4)}\\\\[1ex]P(1)=${Math.abs(Math.pow(amps.beta_real, 2) + Math.pow(amps.beta_imag, 2)).toFixed(4)}`}
+              />
+            )}
+          </div>
+        </div>
+        <div className=" flex items-center justify-center gap-2 flex-col">
+          <div className="flex gap-4 transition-all duration-150">
+            <button
+              className="border border-stone-700 px-4 py-2 rounded-lg text-stone-400 hover:bg-stone-900 hover:text-stone-200 active:bg-stone-950 active:text-stone-300 my-2"
+              onClick={() => onGate("reset")}
+            >
+              Reset State
+            </button>
+            <button
+              className="border border-stone-700 px-4 py-2 rounded-lg text-stone-400 hover:bg-stone-900 hover:text-stone-200 active:bg-stone-950 active:text-stone-300 my-2"
+              onClick={() => onGate("measure")}
+            >
+              Measure Qubit
+            </button>
+          </div>
+          <div className="flex gap-2">
+            <div className="p-2 border border-stone-700 rounded-[20px]">
+              <GateButton name="h" onGate={onGate} />
+            </div>
+            <div className="flex gap-4 border border-stone-700 rounded-[20px] p-2">
+              <GateButton name="x" onGate={onGate} color="sky" />
+              <GateButton name="y" onGate={onGate} color="sky" />
+              <GateButton name="z" onGate={onGate} color="sky" />
+            </div>
+          </div>
+          <div className="flex gap-4 border border-stone-700 p-2 rounded-[20px]">
+            <GateButton name="s" onGate={onGate} color="emerald" />
+            <GateButton name="t" onGate={onGate} color="emerald" />
+            <RotationGateButton name="p" onGate={onGate} color="emerald" />
+          </div>
+          <div className="flex border border-stone-700 rounded-[20px] p-2 gap-4">
+            <RotationGateButton name="r_x" onGate={onGate} color="indigo" />
+            <RotationGateButton name="r_y" onGate={onGate} color="indigo" />
+          </div>
+        </div>
+        <div className="flex flex-col gap-4">
+          <div className="border border-stone-700 black pointer-events-none rounded-xl p-4 pb-2 flex flex-col items-center">
+            <h1 className="font-bold text-xl">Measurement Result</h1>
+            {amps && <DynamicMath expression={`${measurement}`} />}
+          </div>
         </div>
       </div>
     </div>
