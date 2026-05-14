@@ -8,7 +8,7 @@ export default function Home() {
   const [amps, setAmps]: any = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [measurement, setMeasurement] = useState("\\text{- -}");
+  const [measurement, setMeasurement] = useState("- -");
 
   const getSessionId = () => {
     let sessionId = sessionStorage.getItem("ephemeral_session_id");
