@@ -27,7 +27,11 @@ def get_angles(alpha: complex, beta: complex):
     new_alpha = np.multiply(alpha, anti_global_phase)
     new_beta = np.multiply(beta, anti_global_phase)
 
-    r_a = np.sqrt(np.abs(new_alpha.real)**2+np.abs(new_beta.imag)**2)
+    print(alpha)
+
+    r_a = np.sqrt(np.abs(new_alpha.real)**2+np.abs(new_alpha.imag)**2)
+
+    print(r_a)
 
     theta = 2 * np.acos(r_a)
     if theta > np.pi:

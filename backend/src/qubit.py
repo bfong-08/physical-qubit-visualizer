@@ -72,6 +72,7 @@ class Qubit:
         r_x = np.array([[np.cos(theta/2), -1j * np.sin(theta/2)],
                         [-1j * np.sin(theta/2), np.cos(theta/2)]])
         self.state @= r_x
+        print(self.state)
 
     def r_y(self, theta) -> None:
         r_y = np.array([[np.cos(theta/2), -np.sin(theta/2)],
