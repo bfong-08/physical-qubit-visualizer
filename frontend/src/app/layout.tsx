@@ -3,6 +3,7 @@ import { Hanken_Grotesk } from "next/font/google";
 import "./globals.css";
 import "katex/dist/katex.min.css";
 import Navbar from "@/components/Navbar";
+import { Analytics } from "@vercel/analytics/next";
 
 const gabarito = Hanken_Grotesk({
   variable: "--font-gabarito",
@@ -27,6 +28,7 @@ export default function RootLayout({
       >
         <Navbar />
         {children}
+        <Analytics />
       </body>
     </html>
   );
