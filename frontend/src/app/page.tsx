@@ -8,7 +8,7 @@ export default function Home() {
   const [amps, setAmps]: any = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [measurement, setMeasurement] = useState("\\text{N/A}");
+  const [measurement, setMeasurement] = useState("\\text{--}");
 
   const getSessionId = () => {
     let sessionId = sessionStorage.getItem("ephemeral_session_id");
@@ -68,7 +68,7 @@ export default function Home() {
       setAmps(result);
       setError(null);
       if (gate == "measure") {
-        setMeasurement(result.measurement);
+        setMeasurement(amps.measurement);
       } else {
         setMeasurement("N/A");
       }
@@ -93,11 +93,15 @@ export default function Home() {
       </div>
       <div className="flex items-start justify-center gap-16 ">
         <div className="flex flex-col gap-4">
-          <div className="border border-stone-700 black pointer-events-none rounded-xl p-4 pb-2 flex flex-col items-center">
+          <div
+            className="border border-stone-700 black pointer-events-none 
+          rounded-xl p-4 pb-2 flex flex-col items-center"
+          >
             <h1 className="font-bold text-xl">Bloch Sphere Angles</h1>
             {amps && (
               <DynamicMath
-                expression={`\\theta=${amps.theta.toFixed(4)} \\\\[1ex] \\phi=${amps.phi.toFixed(4)}`}
+                expression={`\\theta=${amps.theta.toFixed(4)} \\\\[1ex] 
+                \\phi=${amps.phi.toFixed(4)}`}
               />
             )}
           </div>
