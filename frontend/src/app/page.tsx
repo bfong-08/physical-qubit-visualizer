@@ -85,7 +85,7 @@ export default function Home() {
   }`;
 
   return (
-    <div className="flex flex-col font-gabarito text-stone-200 h-screen pt-16">
+    <div className="flex flex-col font-gabarito text-stone-200 h-screen items-center justify-center">
       <div className="flex justify-center items-center text-2xl my-2">
         {loading && <span>Loading...</span>}
         {error && <span>Error: {error}</span>}
