@@ -8,7 +8,7 @@ export default function Home() {
   const [amps, setAmps]: any = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [measurement, setMeasurement] = useState("\\text{--}");
+  const [measurement, setMeasurement] = useState("\\text{- -}");
 
   const getSessionId = () => {
     let sessionId = sessionStorage.getItem("ephemeral_session_id");
@@ -70,7 +70,7 @@ export default function Home() {
       if (gate == "measure") {
         setMeasurement(amps.measurement);
       } else {
-        setMeasurement("N/A");
+        setMeasurement("- -");
       }
     } catch (err: any) {
       setError(err.message);
